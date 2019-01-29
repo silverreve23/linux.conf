@@ -1,11 +1,24 @@
 echo "update and upgrade"
 sudo apt-get update && sudo apt-get upgrade
 
-echo "install sni-qt:i386"
-sudo apt-get install sni-qt:i386
+echo "install skype"
+cd /tmp && wget -O skype.deb wget https://repo.skype.com/latest/skypeforlinux-64-alpha.deb && sudo dpkg -i skype.deb
+sudo apt --fix-broken install
+sudo dpkg --configure -a
+
+echo "install viber"
+cd /tmp && wget -O viber.deb wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb && sudo dpkg -i viber.deb
+sudo apt --fix-broken install
+sudo dpkg --configure -a
+
+echo "install firefox"
+sudo apt-get install firefox
 
 echo "install git"
 sudo apt-get install git
+
+echo "install filezilla"
+sudo apt-get install filezilla
 
 echo "install composer"
 sudo apt install composer
@@ -13,23 +26,30 @@ sudo apt install composer
 echo "install npm"
 sudo apt install npm
 
-echo "install nginx" 
-sudo apt-get install nginx 
+echo "install nginx"
+sudo apt-get install nginx
 
-echo "install php-fpm php-mbstring php-xml php-zip php-gd php-mysql" 
+echo "install php-fpm php-mbstring php-xml php-zip php-gd php-mysql"
 sudo apt-get install php-fpm php-mbstring php-xml php-zip php-gd php-mysql
 
-echo "install mysql-server mysql-workbench" 
+echo "install mysql-server mysql-workbench"
 sudo apt-get install mysql-server mysql-workbench
+mysql_secure_installation
 
 echo "install atom"
 cd /tmp && wget -O atom.deb https://atom.io/download/deb && sudo dpkg -i atom.deb
+sudo apt --fix-broken install
+sudo dpkg --configure -a
 
-echo "install vim" 
-sudo apt-get install vim 
+echo "install vim"
+sudo apt-get install vim
 
-echo "install video drivers"  
+echo "install video drivers"
 sudo ubuntu-drivers autoinstall
+
+echo "sadd minimize button"
+gsettings set org.pantheon.desktop.gala.appearance button-layout close:minimize,maximize
+sudo gsettings set org.pantheon.desktop.gala.appearance button-layout close:minimize,maximize
 
 echo "set double click mouse"
 gsettings set io.elementary.files.preferences single-click false
@@ -38,5 +58,14 @@ sudo gsettings set io.elementary.files.preferences single-click false
 echo "set focus mode click"
 gsettings set org.gnome.desktop.wm.preferences focus-mode 'click'
 sudo gsettings set org.gnome.desktop.wm.preferences focus-mode 'click'
+
+echo "additional app"
+sudo apt install software-properties-common
+
+echo "clear apt and fix broken"
+sudo apt-get clean
+sudo apt-get autoremove
+sudo apt --fix-broken install
+sudo dpkg --configure -a
 
 echo "end!"
